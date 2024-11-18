@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+</head>
+
+<body>
+    <div id="results"></div>
+    <button id="loadProducts">Load Products</button>
+    <script>
+        loadProducts.addEventListener("click", async () => {
+            resp = await fetch("./api/v1/products/products.json");
+            products = await resp.json();
+            results.innerHTML += products.map(p => `${p.name} ${p.price}`).join("<br>")
+        });
+    </script>
+</body>
+
+</html>
