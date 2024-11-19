@@ -1,0 +1,49 @@
+<head><style>
+    body{
+        background-color: blanchedalmond;
+    }
+    .card{
+        margin: 2vw;
+        display: inline-block;
+        background-color: white;
+        width: 12vw;
+        box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.8);
+    }
+    .card h1{
+        font-size: 1.5vw;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+    .card img{
+        width: 12vw;
+        height: 12vw;
+        object-fit: cover;
+    }
+</style></head>
+<body>
+heyyyyyy
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", async e => {
+        const apiKey = "c683f4f8db02fcf39b6d18e06c137917"
+ // You will need your own api URL this is kevin's
+        const baseURL = "https://gateway.marvel.com:443/v1/public/"
+        const endpointCharacters = `characters`
+        const authentication = `?apikey=${apiKey}`
+
+        const response = await fetch(baseURL + endpointCharacters + authentication);
+        const data = await response.json();
+        data.data.results.forEach(c => {
+            const div = document.createElement("div");
+            div.classList.add("card");
+            const title = document.createElement("h1");
+            title.innerText =  c.name;
+            const image = document.createElement("img");
+            image.src = c.thumbnail.path + "." + c.thumbnail.extension;
+            div.appendChild(title);
+            div.appendChild(image);
+            document.body.appendChild(div);
+        });
+
+    });
+</script>
