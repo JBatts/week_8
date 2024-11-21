@@ -52,6 +52,11 @@
                 name: "Jalen Lives Right Here",
                 latitude: 34.0949058237447, 
                 longitude: -84.26627829325116
+            },
+            {
+                name: "Celia Lives Right Here",
+                latitude: 34.040439048713836,  
+                longitude: -84.60566498977809
             }
         ];
             // cities.forEach(city => citySelect.appendChild(new Option(city.name, `${city.latitude},${city.longitude}`)));
@@ -66,6 +71,7 @@
                 const resp = await fetch(urlEndpointResource);
                 const data = await resp.json(); // this "json" is a built in method of the response object
                 // Note: we are not using the built in object and method JSON.parse(), but response.json() probably is.
+            
                 const secondaryURL = data.properties.forecast;
                 const resp2 = await fetch(secondaryURL)
                 const data2 = await resp2.json();

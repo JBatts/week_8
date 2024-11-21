@@ -1,0 +1,35 @@
+<body>
+    <h1>Hackathon(s)</h1>
+    <p>Allocate your 5 stars to any of these ideas!</p>
+    <select id="userSelect">
+        <option value="">Select a user:</option>
+    </select>
+    <div id="availableStars">?</div>
+    <div id="statusResults">
+        
+    </div>
+        
+    <script>
+        function Idea(idea){
+            const element = document.createElement("div");//make a dic
+            element.classList.add("idea");
+            element.innerHTML = `<h2>${idea.name}</h2><p>${idea.desc}</p><div class="stars">${idea.stars.length}</div>`;
+            return element;
+        };
+        let participants = [];
+        // GET from json/api/"data.json"
+        document.addEventListener("DOMContentLoaded", async ()=> {
+            const endpointURLpath = "/hackathon/server/data.json";
+            const response = await fetch(endpointURLpath); // Get - Method is default
+            const data = await response.json();
+            participants = data.hackathons[0].participants
+            data.hackathons[0].participants.forEach(p =>userSelect.appendChild(new Option(p.name)));
+            data.hackathons[0].ideas.forEach(i =>statusResults.appendChild(Idea(i)));
+            
+        });
+
+        userSelect.addEventListener("change", ()=>{
+            availableStars.innerHTML = participants.find(p=>p.name==userSelect.value).stars;
+        })
+    </script>
+</body>

@@ -1,0 +1,25 @@
+{
+    "hackathons": [
+        {
+            "id": 123,
+            "title": "The title of things",
+            "start_date":"2024-11-23",
+            "end_date":"2024-11-24",
+            "participants": [
+                {"name": "Juck", "stars": 5},
+                {"name": "Tom Brady", "stars": 5}
+            ],
+            "teams": [],
+            "ideas": [
+                {"name": "argue Ai", "desc": "surrogate for arguments", "stars": [] },
+                {"name": "dealer", "desc": "car dealer inventory", "stars": [] },
+                {"name": "goals", "desc": "gamification of life", "stars": [] },
+                {"name": "timer", "desc": "day planner style calendar", "stars": [] },
+                {"name": "search engineer", "desc": "like google only really *not evil*", "stars": [] }
+            ],
+            "starStickers": []
+            
+
+        }
+    ]
+}
