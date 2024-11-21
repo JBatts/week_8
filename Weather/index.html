@@ -48,15 +48,36 @@
                 latitude: 40.893266672535574,
                 longitude: -73.96666051099037
             },
+            {
+                name: "Jalen Lives Right Here",
+                latitude: 34.0949058237447, 
+                longitude: -84.26627829325116
+            }
         ];
             // cities.forEach(city => citySelect.appendChild(new Option(city.name, `${city.latitude},${city.longitude}`)));
-            cities.forEach(c => citySelect.appendChild(new Option(c.name, encodeURIComponent(JSON.stringify(c)))))  // Convert binary objects(s) back to string text
-            citySelect.addEventListener("change", (e) => {
+            cities.forEach(c => citySelect.appendChild(new Option(c.name, encodeURIComponent(JSON.stringify(c)))));  // Convert binary objects(s) back to string text
+            citySelect.addEventListener("change", async (e) => {
                 //resultsOutput.innerText = citySelect.value;
+                // "JSON" is a built in object like Math in "Math.ceil()"
                 const c = JSON.parse(decodeURIComponent(citySelect.value)); // Convert string text back to binary objects(s)
                 const lat_lng = `${c.latitude},${c.longitude}`;
-                resultsOutput.innerText = lat_lng
-            })
+                const urlEndpointResource = "https://api.weather.gov/points/" + lat_lng;
+                // Make a HTTP (web restful api) request using a url with the default verb- GET
+                const resp = await fetch(urlEndpointResource);
+                const data = await resp.json(); // this "json" is a built in method of the response object
+                // Note: we are not using the built in object and method JSON.parse(), but response.json() probably is.
+                const secondaryURL = data.properties.forecast;
+                const resp2 = await fetch(secondaryURL)
+                const data2 = await resp2.json();
+                // Either innerText and use \n for the <br>
+                // resultsOutput.innerText = data2.properties.periods.map(p =>p.name + ":\n" + p.detailedForecast).join("\n\n");
+                resultsOutput.innerHTML = data2.properties.periods.map(p =>`
+                <hr>
+                <h2>${p.name}:</h2>
+                <img src = "${p.icon}"
+                <p>${p.detailedForecast}</p>
+                `).join("");
+            });
     </script>
 </body>
 
