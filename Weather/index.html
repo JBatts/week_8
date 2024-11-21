@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Page</title>
+</head>
+
+<body>
+
+    <label>
+        <h1>Welcome to the page about weather!</h1>
+    </label>
+
+    <select id="citySelect">
+        <option value="default">Please Select a City!</option>
+    </select>
+
+    <br><br>
+
+    <div id="resultsOutput">So basically the weather should show up here!</div>
+
+    <script>
+        let cities = [
+            {
+                name: "Benbrook, TX",
+                latitude: 32.6732,
+                longitude: -97.4606
+            },
+            {
+                name: "Greensboro, Ga",
+                latitude: 33.57680717849283,
+                longitude: -83.1835949886722
+            },
+            {
+                name: "Salem, NC",
+                latitude: 36.538062980835065,
+                longitude: -80.60133781534029,
+            },
+            {
+                name: "Columbus, OH",
+                latitude: 39.98444035546748,
+                longitude: -82.99154923423944,
+            },
+            {
+                name: "Englewood, NY",
+                latitude: 40.893266672535574,
+                longitude: -73.96666051099037
+            },
+        ];
+            // cities.forEach(city => citySelect.appendChild(new Option(city.name, `${city.latitude},${city.longitude}`)));
+            cities.forEach(c => citySelect.appendChild(new Option(c.name, encodeURIComponent(JSON.stringify(c)))))  // Convert binary objects(s) back to string text
+            citySelect.addEventListener("change", (e) => {
+                //resultsOutput.innerText = citySelect.value;
+                const c = JSON.parse(decodeURIComponent(citySelect.value)); // Convert string text back to binary objects(s)
+                const lat_lng = `${c.latitude},${c.longitude}`;
+                resultsOutput.innerText = lat_lng
+            })
+    </script>
+</body>
+
+</html>
